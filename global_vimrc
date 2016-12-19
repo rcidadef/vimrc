@@ -33,6 +33,10 @@ set background=dark
 colorscheme solarized
 
 " My mappings
+" from : -> ;
+nnoremap ; :
+nnoremap : ;
+
 " Map capital W to save current buffer
 nnoremap W :w<CR>
 " Map ESC key to :noh
