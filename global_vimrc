@@ -1,3 +1,6 @@
+set nocompatible
+filetype off
+
 " The rest of this file is at /etc/vim/{vimrc, gvimrc}
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -12,6 +15,9 @@ Plugin 'Shougo/unite.vim'
 Plugin 'rking/ag.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'Yggdroot/indentLine'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'tpope/vim-fugitive'
+Plugin 'vim-airline/vim-airline'
 Plugin 'altercation/vim-colors-solarized'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -24,21 +30,50 @@ set sw=4
 set expandtab
 set number
 
-"Remove all trailing whitespace by pressing F5
+vnoremap : ;
+vnoremap ; :
+nnoremap ; :
+nnoremap : ;
+inoremap jj <ESC>:noh<CR>
+" nnoremap j :noh<CR>j
+
+nnoremap <C-a> ggVG
+
+" vim-markdown-preview settings
+let vim_markdown_preview_toggle=2
+let vim_markdown_preview_temp_file=0
+let vim_markdown_preview_github = 0
+
+" YouCompleteMe settings
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+
+" Syntastic settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_python_checkers = ['python']
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+"Remove all trailing whitespace by pressing F8
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 " If using a dark background within the editing area and syntax highlighting
 " turn on this option as well
+syntax enable
+let g:solarized_italic=0
 set background=dark
 colorscheme solarized
 
 " My mappings
-" from : -> ;
-nnoremap ; :
-nnoremap : ;
-
 " Map capital W to save current buffer
 nnoremap W :w<CR>
+nnoremap <c-s> :w<CR>
 " Map ESC key to :noh
 nnoremap <ESC> :noh<CR>
 
@@ -47,8 +82,10 @@ nnoremap <c-P> "+P
 nnoremap <c-p> "+p
 
 " Copy to " register.
-nnoremap <c-Y> "+Y
-nnoremap <c-y> "+y
+vnoremap <c-Y> "+Y
+vnoremap <c-Y> "+Y
+nnoremap <c-y> "+yy
+nnoremap <c-y> "+yy
 
 " Special plugins configurations
 " unite
@@ -68,17 +105,17 @@ nnoremap <space>r <Plug>(unite_restart)
 nmap ° :Ag <c-r>=expand("<cword>")<cr><cr>
 nnoremap <space>/ :Ag<space>
 
-" Text that passes last column (80th) will be colored
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
+" Text that passes last column (83th) will be colored
+" highlight OverLength ctermbg=red ctermfg=white guibg=#592932
+" match OverLength /\%84v.\+/
 
 " IndentLine
 " Vim
-"let g:indentLine_color_term = 239
+"let g:indentLine_color_term = 242
 
 "GVim
-"let g:indentLine_color_gui = '#A4E57E'
+"let g:indentLine_color_gui = '#A7E57E'
 
 " none X terminal
-"let g:indentLine_color_tty_light = 7 " (default: 4)
-"let g:indentLine_color_dark = 1 " (default: 2)
+"let g:indentLine_color_tty_light = 10 " (default: 4)
+"let g:indentLine_color_dark = 4 " (default: 2)
