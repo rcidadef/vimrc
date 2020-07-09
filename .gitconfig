@@ -1,0 +1,9 @@
+[alias]
+	co = checkout
+	pr = pull --rebase
+	s = status
+	d = diff
+	fo = fetch origin
+	cane = commit --amend --allow-empty
+[core]
+	editor = vim
