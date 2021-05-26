@@ -1,5 +1,6 @@
 [alias]
 	co = checkout
+	cm = commit -m
 	pr = pull --rebase
 	s = status
 	d = diff
